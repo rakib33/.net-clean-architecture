@@ -92,3 +92,45 @@ Each layer references only what it needs:
 
 This gives strong isolation and enforces architectural rules.
 
+📁 Option B — One “Domain” Folder with a Subproject Inside
+
+✅ Simpler for small or learning projects
+
+Structure:
+
+<img width="481" height="652" alt="image" src="https://github.com/user-attachments/assets/6c9aecb5-9979-40d6-9099-8c8f221c0dc0" />
+
+Here:
+
+ - Folder name = layer name (Domain, Application, Infrastructure, Presentation)
+ - Project name still includes the full solution prefix (TopUp.Domain, TopUp.Application, etc.)
+
+🧩 Example:
+
+<img width="501" height="137" alt="image" src="https://github.com/user-attachments/assets/4992e44c-e8af-4735-890d-1c73aac7203d" />
+
+⚖️ Which Style Should You Use?
+<img width="842" height="192" alt="image" src="https://github.com/user-attachments/assets/e8e84841-a41b-4ee5-ad4f-208b4dcfb851" />
+
+🧱 how Clean Architecture dependencies work under the hood.
+   - The setup you’re referring to:
+
+   <img width="886" height="237" alt="image" src="https://github.com/user-attachments/assets/8f169fcd-c7e8-46bf-9842-f1ef80267135" />
+
+⚖️ Summary Table
+
+  <img width="843" height="232" alt="image" src="https://github.com/user-attachments/assets/254560e3-c49a-4d13-9727-3c22e3a143ea" />
+
+🧱 1️⃣ Layered Architecture (Traditional)
+
+ - Controller → Service → Repository → DbContext
+ - Controller (Presentation Layer): Handles HTTP requests/responses.
+ - Service: Contains business logic (validation, transformations).
+ - Repository: Talks to database (CRUD).
+ - DbContext: Actual EF Core implementation.
+
+🧩 2️⃣ Clean Architecture Equivalent
+
+In Clean Architecture, the same flow exists — but responsibilities are more organized and decoupled:
+
+<img width="823" height="313" alt="image" src="https://github.com/user-attachments/assets/da637114-64d7-4068-ada0-3ee1c6c45942" />
