@@ -1,0 +1,118 @@
+# ==========================================
+# .NET 8 / ASP.NET Core / Clean Architecture
+# ==========================================
+
+## Build folders
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Tt]emp/
+
+# Visual Studio / Rider user files
+.vs/
+.idea/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.rsuser
+
+# Build results
+*.dll
+*.exe
+*.app
+*.appx
+*.cache
+*.config
+*.dbmdl
+*.pdb
+*.publish.xml
+*.vspscc
+
+# Generated files
+Generated_Code/
+_TestResults/
+TestResults/
+CoverageResults/
+BenchmarkDotNet.Artifacts/
+
+# Publish output
+publish/
+artifacts/
+wwwroot/dist/
+wwwroot/build/
+out/
+release/
+debug/
+
+# NuGet
+*.nupkg
+*.snupkg
+*.nuspec
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Entity Framework Migrations snapshot
+*MigrationsSnapshot.cs
+
+# Packages
+packages/
+*.tmp
+*.bak
+*.swp
+*.zip
+*.tar.gz
+
+# Logs
+*.log
+*.tlog
+*.trace
+*.svclog
+
+# Cache folders
+.cache/
+node_modules/
+dist/
+build/
+tmp/
+bower_components/
+typings/
+jspm_packages/
+
+# Angular or SPA frontend (if inside same repo)
+**/src/environments/environment*.ts
+**/src/settings/clientSettings.ts
+
+# OS generated files
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# VS Code settings
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Others
+*.db
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+*.bak
+*.old
+*.orig
