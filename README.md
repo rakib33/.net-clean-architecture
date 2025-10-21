@@ -42,3 +42,53 @@ Below is the recommended folder structure (for .NET 8 or newer), following best 
 🏗 Folder Structure
 
 <img width="386" height="1521" alt="image" src="https://github.com/user-attachments/assets/91e03550-e9b6-4938-a679-b05e01afb8a4" />
+
+🧪 Test Projects
+Unit Tests (TopUp.UnitTests)
+
+Test Application & Domain layers.
+Use xUnit, Moq, and FluentAssertions.
+Example folders:
+              - tests/TopUp.UnitTests/Application/Handlers/
+              - tests/TopUp.UnitTests/Domain/Entities/
+
+Integration Tests (TopUp.IntegrationTests)
+ - Test Infrastructure with real DB (SQLite in-memory or TestContainers).
+
+Functional Tests (TopUp.FunctionalTests)
+ - End-to-end API tests using WebApplicationFactory.
+
+🧱 1️⃣ Clean Architecture Terminology
+
+In Clean Architecture, we usually have layers (or projects) like:
+ - Domain
+ - Application
+ - Infrastructure
+ - Presentation (API/UI)
+
+Now, these layers can be organized in two ways:
+
+🗂️ Option A — Each Layer as a Separate Project (Recommended for real solutions)
+
+✅ Professional / Enterprise-level approach
+
+Structure:
+<img width="607" height="330" alt="image" src="https://github.com/user-attachments/assets/e1b05ca2-e4b0-4170-aeeb-1a5f8dd77fed" />
+
+Each folder (TopUp.Domain, TopUp.Application, etc.) contains a .NET project (class library or webapi).
+
+So here:
+ - TopUp.Domain → both folder name and project name
+ - TopUp.Application → both folder name and project name
+
+Each one will have its own .csproj file, for example:
+ - src/TopUp.Domain/TopUp.Domain.csproj
+
+🔗 Project References
+
+Each layer references only what it needs:
+
+<img width="870" height="237" alt="image" src="https://github.com/user-attachments/assets/88c3531a-0449-4f5c-bed4-8a65bc1e675f" />
+
+This gives strong isolation and enforces architectural rules.
+
