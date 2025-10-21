@@ -134,3 +134,14 @@ Here:
 In Clean Architecture, the same flow exists — but responsibilities are more organized and decoupled:
 
 <img width="823" height="313" alt="image" src="https://github.com/user-attachments/assets/da637114-64d7-4068-ada0-3ee1c6c45942" />
+
+🔁 Data Flow
+
+<img width="431" height="193" alt="image" src="https://github.com/user-attachments/assets/9f2cb1cd-1911-4011-92a5-9521fcbb7a0b" />
+
+🧩 Student CRUD Example (Simplified)
+
+  🧭 Folder Structure (just related parts)
+
+  <img width="327" height="568" alt="image" src="https://github.com/user-attachments/assets/9314ccd4-236b-4060-af15-0ae73c76b4e6" />
+
