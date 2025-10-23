@@ -392,3 +392,80 @@ Repository Implementation (Infrastructure)
    ↓
 DbContext (EF Core)
 ```
+
+1️⃣ What is DependencyInjection.cs?
+
+In Clean Architecture, we usually create a static helper class called DependencyInjection.cs in each layer/project (Application, Infrastructure, sometimes Domain if needed).
+
+Its purpose:
+ - Register services, MediatR handlers, repositories etc. for that layer.
+ - Keep Program.cs / Startup.cs clean.
+
+2️⃣ Where to put it?
+
+You have options:
+Option A — Root of the Project (Recommended)
+
+```
+TopUp.Application/
+ ├── DependencyInjection.cs   ← good, simple
+ ├── Interfaces/
+ ├── Features/
+ └── TopUp.Application.csproj
+
+```
+- Keeps it easy to find.
+- Other projects (Infrastructure, API) can call services.AddApplication().
+
+Option B — Separate folder like “Configuration” or “DI”
+
+```
+TopUp.Application/
+ ├── Configuration/
+ │    └── DependencyInjection.cs
+ ├── Interfaces/
+ └── Features/
+```
+More structured if you have many startup configurations.
+
+- Optional, adds a bit of nesting.
+- Option C — Folder per feature.
+
+3️⃣ Summary / Recommendation
+
+- You do not need a separate folder just for DependencyInjection.
+- Most clean architecture projects just put DependencyInjection.cs in the root of Application/Infrastructure project.
+
+Keep it simple — if later the file grows too big, you can create a folder.
+Not recommended for DI — keep DI at project level so you can register all handlers/repositories/services in one place.
+
+💡 Example Call from API
+
+```
+// Program.cs
+builder.Services.AddApplication();    // calls Application.DependencyInjection
+builder.Services.AddInfrastructure(builder.Configuration); // Infrastructure DI
+
+```
+
+This makes Program.cs clean and each layer self-contained.
+
+🧱 1️⃣ What Mediator Does
+
+The Mediator pattern decouples senders and receivers:
+
+```
+Sender (Controller) → Mediator → Handler → Response
+```
+
+- Controller doesn’t call repository directly
+- Only sends a request to the mediator
+- Mediator finds the appropriate handler and executes it
+- Returns result back to controller
+
+✅ Advantages of Custom Mediator
+
+ - Lightweight — no external dependencies
+ - Full control over behavior
+ - Can easily add custom pipelines (logging, validation, caching)
+ - Perfect learning exercise
