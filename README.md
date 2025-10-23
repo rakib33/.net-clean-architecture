@@ -469,3 +469,82 @@ Sender (Controller) → Mediator → Handler → Response
  - Full control over behavior
  - Can easily add custom pipelines (logging, validation, caching)
  - Perfect learning exercise
+
+1️⃣ Use Git Branches for Version Management
+
+ - Each branch can represent a version/state of your app:
+
+dev → for ongoing development
+staging → for QA/testing
+release / production → for live deployments
+
+- In Visual Studio 2022:
+
+1. Open Git Changes panel (View → Git Changes).
+2. Click Branch dropdown → New Branch.
+3. Name it according to versioning logic, e.g., v1.0-dev, v1.0-release.
+
+2️⃣ Use Git Tags for Version Numbers
+
+Tags are snapshots of specific commits.
+
+ - Light tags → simple labels (e.g., v1.0.0)
+ - Annotated tags → include metadata, author, date, and message
+
+In Visual Studio 2022:
+
+1. Go to Git Repository Window (View → Git Repository).
+2. Right-click a commit → Create Tag.
+3. Name the tag according to versioning, e.g., v1.2.0-dev.
+
+This is better than putting versions in branch names alone, as you can tag releases precisely.
+
+3️⃣ Automatically Version in the Project
+
+For .NET projects, you can maintain version in the .csproj file:
+
+```
+<PropertyGroup>
+    <Version>1.0.0-dev</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+</PropertyGroup>
+
+```
+
+Tip:
+You can change version per branch using:
+
+Branch-specific .csproj edits
+Or a Directory.Build.props override per branch
+Or a build pipeline (CI/CD) to automatically inject version based on branch name/tag.
+
+4️⃣ Example Hierarchy / Flow
+
+```
+main (production-ready)
+│
+├─ release/1.2
+│   └─ hotfix/1.2.1
+│
+└─ develop (active dev)
+    ├─ feature/login
+    ├─ feature/payment
+    └─ bugfix/123
+
+```
+
+Deployment Mapping:
+
+develop → stage (QA/testing)
+release/x.y → production (after testing)
+hotfix/x.y.z → production (emergency fix)
+main = always production stable
+
+💡 Tips:
+
+Keep main / production stable — never push untested code.
+Use release/x.y to prep for production; merge back to develop to keep fixes.
+Use short-lived feature branches for daily development.
+
+<img width="1536" height="1024" alt="GitBranch" src="https://github.com/user-attachments/assets/dabf1cc0-7e4c-4626-80d1-50f32bd70568" />
