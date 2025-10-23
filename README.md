@@ -187,3 +187,92 @@ namespace TopUp.Domain.Interfaces
     }
 }
 ```
+
+3️⃣ Application Layer — Commands + Queries
+
+- Create Command
+  <img width="393" height="432" alt="image" src="https://github.com/user-attachments/assets/2031c748-3308-4688-9c4d-2451d852272d" />
+
+```
+using TopUp.Application.Common.CustomMediator;
+
+namespace TopUp.Application.Features.Students.Commands
+{
+    public record CreateStudentCommand : IRequest<long>
+    {
+        public string Name { get; set; } = "";
+        public int Age { get; set; }
+        public string Email { get; set; } = "";
+    };
+}
+```
+
+- Create Handler
+
+```
+
+using TopUp.Application.Common.CustomMediator;
+using TopUp.Application.Features.Students.Commands;
+using TopUp.Domain.Entities;
+using TopUp.Domain.Interfaces;
+
+namespace TopUp.Application.Features.Students.Handlers
+{
+    public class CreateStudentHandler : IRequestHandler<CreateStudentCommand,long>
+    {
+        private readonly IStudentRepository _repo;
+        public CreateStudentHandler(IStudentRepository repo)
+        {
+            _repo = repo;
+        }
+
+        public async Task<long> Handle(CreateStudentCommand request, CancellationToken cancellationToken = default)
+        {
+            var student = new Student { Name = request.Name, Age = request.Age };
+            await _repo.AddAsync(student, cancellationToken); // pass token down to db
+            return student.Id;
+        }
+    }
+}
+
+```
+
+- Get All Query
+
+```
+using TopUp.Application.Common.CustomMediator;
+using TopUp.Domain.Entities;
+
+namespace TopUp.Application.Features.Students.Queries
+{
+    public record GetStudentsQuery() : IRequest<IEnumerable<Student>>;
+}
+```
+
+- Get All Handler
+
+```
+using TopUp.Application.Common.CustomMediator;
+using TopUp.Application.Features.Students.Queries;
+using TopUp.Domain.Entities;
+using TopUp.Domain.Interfaces;
+
+namespace TopUp.Application.Features.Students.Handlers
+{
+
+    public class GetStudentsHandler : IRequestHandler<GetStudentsQuery, IEnumerable<Student>>
+    {
+        private readonly IStudentRepository _repo;
+        public GetStudentsHandler(IStudentRepository repo)
+        {
+            _repo = repo;
+        }
+
+        public async Task<IEnumerable<Student>> Handle(GetStudentsQuery request, CancellationToken cancellationToken = default)
+        {
+            return await _repo.GetAllAsync(cancellationToken);
+        }
+    }
+}
+
+```  
