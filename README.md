@@ -145,3 +145,45 @@ In Clean Architecture, the same flow exists — but responsibilities are more or
 
   <img width="327" height="568" alt="image" src="https://github.com/user-attachments/assets/9314ccd4-236b-4060-af15-0ae73c76b4e6" />
 
+🧩 Domain Interface
+   
+   - Only database related Interface will add in Domain layer.
+   - Interface that has data fetch, insert/post , update ,delete will declare here.
+   - This interface implementation will implement in Infrustraction layer.
+   - So High lavel (Domain) doesn't depends on low label(Infrustracture). Rather they depends on Interface.
+
+🧩 Step-by-Step Implementation
+
+1️⃣ Domain Layer — Entity
+
+```
+// TopUp.Domain/Entities/Student.cs
+namespace TopUp.Domain.Entities
+{
+    public class Student
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = default!;
+        public int Age { get; set; }
+        public string Email { get; set; } = default!;
+    }
+}
+```
+
+2️⃣ Domain Layer — Interface
+
+```
+using TopUp.Domain.Entities;
+
+namespace TopUp.Domain.Interfaces
+{
+    public interface IStudentRepository
+    {
+        Task<IEnumerable<Student>> GetAllAsync(CancellationToken cancellationToken = default);
+        Task<Student?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
+        Task AddAsync(Student student, CancellationToken cancellationToken = default);
+        Task UpdateAsync(Student student, CancellationToken cancellationToken = default);
+        Task DeleteAsync(int id, CancellationToken cancellationToken = default);
+    }
+}
+```
