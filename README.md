@@ -548,3 +548,107 @@ Use release/x.y to prep for production; merge back to develop to keep fixes.
 Use short-lived feature branches for daily development.
 
 <img width="1536" height="1024" alt="GitBranch" src="https://github.com/user-attachments/assets/dabf1cc0-7e4c-4626-80d1-50f32bd70568" />
+
+🧠 What is an Integration Test?
+
+An integration test verifies that multiple parts of your system work correctly together — for example:
+
+ - Your controller, routing, middleware, filters, and dependency injection all functioning as expected.
+ - Ensuring real infrastructure boundaries (like database, HTTP calls, or file storage) behave correctly when connected.
+
+Unlike unit tests, which test a single class or method in isolation, integration tests start your real application (or parts of it) and make real HTTP calls to the in-memory web server.
+
+🧩 Example:
+
+```
+| Test Type            | What It Tests                    | Example                                                                                                 |
+| -------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| **Unit Test**        | One method/class only            | Does `AgentBalanceController` return OK when mediator returns a list?                                   |
+| **Integration Test** | Components working together      | Can `/get-topup-request-async` endpoint return a list when the app runs with DI + routing + middleware? |
+| **End-to-End (E2E)** | Full system + external resources | Does the deployed API connect to the real DB and return expected data for an agent?                     |
+
+```
+🏗️ Should You Create a Separate Project?
+
+✅ Yes — absolutely recommended.
+
+Typical structure:
+```
+MyApp.sln
+├── src/
+│   ├── MyApp.Api/
+│   ├── MyApp.Application/
+│   ├── MyApp.Infrastructure/
+│   └── MyApp.Domain/
+└── tests/
+    ├── MyApp.UnitTests/
+    └── MyApp.IntegrationTests/
+```
+
+This separation gives you:
+
+- Independent dependencies (Moq, FluentAssertions, Microsoft.AspNetCore.Mvc.Testing)
+- Clean build pipelines (dotnet test can run all or specific test types)
+- Ability to spin up full API instances without polluting your main app
+- Clear distinction between fast (unit) and slow (integration) tests
+
+🎯 What You Can Test with Integration Tests
+
+You can test almost the entire request lifecycle, such as:
+
+1. Controller & Routing
+
+✅ Verify that all routes (/api/...) map correctly and return proper HTTP responses.
+
+2. Middleware
+
+✅ Test if authorization, exception handling, logging, and response compression work.
+
+3. Dependency Injection
+
+✅ Ensure correct service registration — e.g. IMediator, IRepository, IUnitOfWork resolve properly.
+
+4. Filters & Attributes
+
+✅ Validate [Authorize], [ValidateModel], or [HttpGet] route behaviors.
+
+5. Model Binding & Validation
+
+✅ Send malformed or missing data and verify validation messages.
+
+6. Database or Infrastructure Integration
+
+✅ Optionally test with an in-memory EF Core database (no real DB connection) using UseInMemoryDatabase.
+
+7. Real Serialization
+
+✅ Confirm that your JSON structure and field names match expectations.
+
+⚖️ Summary — How Many Tests You Can Achieve
+
+```
+| Type                       | Scope                 | Example Count | Runtime | Purpose                        |
+| -------------------------- | --------------------- | ------------- | ------- | ------------------------------ |
+| **Unit Tests**             | Individual methods    | 100+          | Fast    | Logic correctness              |
+| **Integration Tests**      | API + DI + Middleware | 10–30         | Medium  | System integration correctness |
+| **E2E / Functional Tests** | Full stack + real DB  | 5–10          | Slow    | Real-world behavior            |
+
+```
+Rule of thumb:
+
+~80% Unit Tests, ~15% Integration Tests, ~5% E2E Tests
+That balance keeps your test suite fast but reliable.
+
+✅ TL;DR — Quick Takeaways
+Question	Answer
+
+Should I create a separate project?	✔️ Yes, MyApp.IntegrationTests
+
+What’s integration testing?	Testing real interactions (controller, DI, routing, middleware)
+
+Can I mock dependencies?	✔️ Yes, like IMediator or external services
+
+Can I include DB tests?	✔️ With EF InMemory or TestContainers
+
+How many integration tests?	Around 10–30 covering key API endpoints
+
