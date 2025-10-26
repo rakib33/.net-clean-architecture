@@ -549,6 +549,77 @@ Use short-lived feature branches for daily development.
 
 <img width="1536" height="1024" alt="GitBranch" src="https://github.com/user-attachments/assets/dabf1cc0-7e4c-4626-80d1-50f32bd70568" />
 
+🧠 What Is a “Unit Test Case”?
+
+A unit test case verifies the behavior of one unit of logic — usually a single method — in isolation from all other dependencies.
+
+🧩 The main unit tests you can (and should) write:
+
+```
+| #   | Test Case                                  | Description                                                       | Expected Result                                                         |
+| --- | ------------------------------------------ | ----------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| ✅ 1 | **Returns Ok with valid data**             | When `IMediator.Send()` returns a list of top-ups                 | `OkObjectResult` with correct data                                      |
+| ✅ 2 | **Returns Ok with empty list**             | When `IMediator.Send()` returns an empty list                     | `OkObjectResult` with empty list                                        |
+| ✅ 3 | **Handles cancellation token**             | When cancellation is requested before send                        | Should not crash, may throw `TaskCanceledException`                     |
+| ✅ 4 | **Handles exception from Mediator**        | When `_mediator.Send()` throws exception                          | Should bubble up or return appropriate error (if controller handles it) |
+| ✅ 5 | **Calls Mediator once only**               | Verifies correct command/query sent exactly once                  | Verify `_mediator.Send()` called `Times.Once`                           |
+| ✅ 6 | **Mediator receives correct Query object** | Verifies the controller sends the right `GetAllTopupRequestQuery` | Assert that the correct query type is sent                              |
+
+```
+
+📈 Unit Test Coverage in General
+
+In a real-world .NET solution (Clean Architecture style), you’d have 3–4 layers:
+
+```
+| Layer                 | Example Classes                  | Test Focus                  | Typical Coverage             |
+| --------------------- | -------------------------------- | --------------------------- | ---------------------------- |
+| **Domain**            | Entities, Value Objects, Rules   | Business logic, invariants  | ~90–100%                     |
+| **Application**       | Command/Query Handlers, Services | Use cases, mapping          | ~80–90%                      |
+| **Infrastructure**    | Repositories, External APIs      | Minimal (mocked usually)    | ~30–40%                      |
+| **API (Controllers)** | Controllers, Filters             | Routing, validation, result | ~60–80% (unit + integration) |
+
+```
+
+⚖️ Rule of Thumb for Unit Test Coverage
+
+```
+| Category                                          | Target                          |
+| ------------------------------------------------- | ------------------------------- |
+| Small projects                                    | 60–70% line coverage            |
+| Enterprise apps                                   | 80–90% line coverage            |
+| Mission-critical systems (finance, medical, etc.) | 95%+ with strict review         |
+| Controllers (like yours)                          | Usually 3–6 tests per endpoint  |
+| Application services                              | 5–15 tests per handler or class |
+
+```
+You can measure this using:
+
+```
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov
+```
+
+or tools like Coverlet, ReportGenerator, or Rider/Visual Studio Test Coverage.
+
+🧠 Summary — For Your Controller
+
+```
+| Test Type            | Count | Example                                 |
+| -------------------- | ----- | --------------------------------------- |
+| Success response     | 1     | OkObjectResult with valid data          |
+| Empty data           | 1     | OkObjectResult with empty list          |
+| Error handling       | 1     | Throws exception or returns BadRequest  |
+| Cancellation         | 1     | TaskCanceledException handled           |
+| Mediator interaction | 1     | Verifies `_mediator.Send()` called once |
+| Query validation     | 1     | Ensures correct query passed            |
+
+```
+
+➡️ Total: 5–6 solid unit tests
+➡️ Coverage: 100% for this controller method
+➡️ Effort: 1 test class (~60–80 lines)
+
+
 🧠 What is an Integration Test?
 
 An integration test verifies that multiple parts of your system work correctly together — for example:
