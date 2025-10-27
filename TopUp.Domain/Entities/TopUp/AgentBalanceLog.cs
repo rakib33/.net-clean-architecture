@@ -1,0 +1,61 @@
+﻿namespace TopUp.Domain.Entities.TopUp;
+
+public class AgentBalanceLog : BaseEntity<long>
+{
+    public long AgentId { get; set; }
+    public decimal Amount { get; set; }
+    public string? Remarks { get; set; }
+    public byte? FromOfPaymentType { get; set; }
+    public string? CheckNo { get; set; }
+    public string? CheckBank { get; set; }
+    public DateTime? CheckIssueDate { get; set; }
+    public long? DepositedInAccountId { get; set; }
+    public long? DepositedFromAccountId { get; set; }
+    public DateTime? DepositedDate { get; set; }
+    public DateTime? TransferDate { get; set; }
+    public byte? PaymentType { get; set; }
+    public string? TransactionId { get; set; }
+    public string? PaymentId { get; set; }
+    public decimal? GatewayFee { get; set; }
+    public string? Reference { get; set; }
+    public string? Attachment { get; set; }
+    public byte? Status { get; set; }
+    public DateTime? StatusDate { get; set; }
+    public long? StatusBy { get; set; }
+    public byte BalanceType { get; set; }
+    public string? UniqueTransID { get; set; }
+    public decimal BalanceAmount { get; set; }
+    public bool IsAdmin { get; set; }
+    public string? RemarksAdmin { get; set; }
+    public string? ReferenceAdmin { get; set; }
+    public decimal BankChargeAdmin { get; set; }
+    public decimal? TopupAmountAdmin { get; set; }
+    public string? Purpose { get; set; }
+    public string? SubPurposeCode { get; set; }
+    public string? TransactionType { get; set; }
+    public string? BranchName { get; set; }
+    public string? TnxNumber { get; set; }
+    public bool? IsAttachmentS3 { get; set; }
+    public bool IsPartialPayment { get; set; }
+    public long? RemovedBy { get; set; }
+    public DateTime? RemovedDate { get; set; }
+    public bool IsInvoiceWithPay { get; set; }
+    public long? TicketId { get; set; }
+    public int? PurposeTypeId { get; set; }
+    public long? TicketIds { get; set; }
+    public string? ParentTnxNumber { get; set; }
+    public decimal? ImbalanceAmount { get; set; }
+    public string? TicketNumbers { get; set; }
+    public string? Description { get; set; }
+    public string? PNR { get; set; }
+    public bool IsAutoCashBack { get; set; }
+    public long? PaymentGatewayId { get; set; }
+    public string? RemarkStep1 { get; set; }
+    public string? Reasons { get; set; }
+    public string? TempGatewayName { get; set; }
+    public string? TempFormOfPayment { get; set; }
+    public bool IsPosted { get; set; }
+    public string? PurposeTypeCode { get; set; }
+    public string? SubPurposeTypeCode { get; set; }
+    public string? MobileAccountNumber { get; set; }
+}

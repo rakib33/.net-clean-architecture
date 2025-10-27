@@ -1,6 +1,4 @@
-﻿using DoctorBooking.Domain.Entities;
-
-namespace TopUp.Domain.Entities
+﻿namespace TopUp.Domain.Entities
 {
     public class Student : BaseEntity<long>
     {

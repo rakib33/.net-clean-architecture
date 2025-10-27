@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoctorBooking.Domain.Enums
+namespace TopUp.Domain.Enums
 {
     public enum AppointmentStatus
     {
