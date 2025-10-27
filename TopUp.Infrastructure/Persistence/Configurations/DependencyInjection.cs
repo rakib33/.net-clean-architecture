@@ -22,6 +22,11 @@ namespace TopUp.Infrastructure.Persistence.Configurations
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddKeyedSingleton<SMSNotification>("sms");
             services.AddKeyedSingleton<EmailNotification>("email");
+
+            //TopUp
+            services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+            services.AddScoped<IBaseUnitOfWork, BaseUnitOfWork>();
+
             return services;
         }
     }

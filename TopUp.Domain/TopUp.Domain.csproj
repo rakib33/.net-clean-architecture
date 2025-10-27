@@ -10,8 +10,4 @@
     <None Remove="Entities\Patient.cs~RF15fe01dc.TMP" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\TopUp\" />
-  </ItemGroup>
-
 </Project>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using TopUp.Application.Common.CustomMediator;
+using TopUp.Application.Interfaces;
+using TopUp.Application.Services;
 
 
 namespace TopUp.Application.Configuration
@@ -31,6 +33,9 @@ namespace TopUp.Application.Configuration
 
             // Register custom mediator itself
             services.AddScoped<IMediator, Mediator>();
+
+            //topup
+            services.AddScoped<ITopUpServices, TopUpServices>();
 
             return services;
         }

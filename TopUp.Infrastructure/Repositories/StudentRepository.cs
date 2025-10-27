@@ -14,8 +14,8 @@ namespace TopUp.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Student>> GetAllAsync(CancellationToken cancellationToken = default)=> await _context.Students.ToListAsync(cancellationToken);
-
+        public async Task<IEnumerable<Student>> GetAllAsync(CancellationToken cancellationToken = default) =>  await _context.Students.ToListAsync(cancellationToken);
+        
         public async Task<Student?> GetByIdAsync(int id, CancellationToken cancellationToken = default) => await _context.Students.FindAsync(id, cancellationToken);
 
         public async Task AddAsync(Student student, CancellationToken cancellationToken = default)
